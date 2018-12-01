@@ -208,6 +208,12 @@ class artByArtist {
 		echo implode(", ", $names);	
 		
 		$conn->close();	
+	}
+
+	public static function getArtJSObject($artistID, $artworkID) {
+		$art = self::getArtByWorkID($artistID, $artworkID); 
+        return (array) $art; 
+
 	}	
 	
 }

@@ -2,7 +2,8 @@
    <div class="panel-heading">
       <h3 class="panel-title">Cart </h3>
    </div>
-   <div class="panel-body">            
+   <div class="panel-body">
+      <div id="demo"></div>            
       <div class="media">
         <a class="pull-left" href="#">
           <img class="media-object" src="images/art/works/tiny/116010.jpg" alt="..." width="32">
@@ -25,4 +26,5 @@
       <button type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-arrow-right"></span> Checkout</button>
       </div>
    </div>
+
 </div>    

@@ -29,8 +29,12 @@
 	include 'lib/shoppingCart.php'; 
 	
 	$art = artByArtist::getArtByID(); 
+  $artObject = artByArtist::getArtJSObject($art->artistID, $art->artworkID);
 ?>
 
+<script type="text/javascript">
+    var artObject = <?php echo json_encode($artObject); ?>;
+</script>
 
 <div class="container">
    <div class="row">
@@ -51,8 +55,8 @@
                  <button type="button" class="btn btn-default">
                      <a href="#"><span class="glyphicon glyphicon-gift"></span> Add to Wish List</a>  
                  </button>
-                 <button type="button" onclick="<?php array_push($_SESSION['cart'], array("artist" => $art->artistID, "artwork" => $art->artworkID)); ?>" class="btn btn-default">
-                  <a href="display-cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Shopping Cart</a>
+                 <button type="button" onclick="addToCart(artObject);" class="btn btn-default">
+                  <a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Add to Shopping Cart</a>
                  </button>
                </div>               
                <p>&nbsp;</p>
@@ -115,6 +119,6 @@
     <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
     <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script>  
 	
-	<script src="addToCard.js"></script> 
+	<script src="addToCart.js"></script> 
   </body>
 </html>
