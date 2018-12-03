@@ -1,11 +1,5 @@
 <?php  
 	session_start(); 
-	echo count($_SESSION["cart"]); 
-	foreach($_SESSION["cart"] as $artwork => $quantity) {
-			echo $artwork; 
-			echo $quantity; 
-		
-	}
 	include 'includes/art-data.php'; 
 	include 'lib/artByArtist.php'; 
 	
@@ -41,10 +35,12 @@
          </tr>
 		 <?php 
 			if(count($_SESSION["cart"]) > 0) {
+				$subtotal = 0; 
 				foreach($_SESSION["cart"] as $artwork => $quantity) {
 					echo "<tr>";
 					$art = artByArtist::getArtByWorkID($artwork); 
 					outputCartRow($art->image, $art->title, $quantity, $art->cost);
+					$subtotal += ($quantity * $art->cost); 
 					echo "</tr>";
 				}
 			}
@@ -53,7 +49,6 @@
             <td colspan="4" class="moveRight">Subtotal</td>
             <td >
 				<?php
-					$subtotal = ($quantity1 * $price1) + ($quantity2 * $price2); 
 					echo "$" . number_format($subtotal); 
 				?>
 			</td>

@@ -5,12 +5,12 @@ function addToCart(artworkID) {
 		data: "artworkID=" + artworkID, 
 		dataType: 'json', 
 		success:
-			function(artObjects) {
+			function(response) {
+				var artObjects = response[0]; 
+				var exists = response[1]; 
 				var cart = ""; 
-				//for(var i = 0; i < artObjects.length; i++) {
+				if(!exists) {
 					var img = "images/art/works/square-medium/" + artObjects["image"] + ".jpg"; 
-			    	var cost = parseInt(artObjects["cost"]).toFixed(2); 
-
 			    	cart += "<div class='media'>"; 
 			    	cart += "<a class='pull-left' href='#'>";
 			    	cart += "<img class='media-object' src=" + img + " alt='...' width='32'></a>";
@@ -19,9 +19,11 @@ function addToCart(artworkID) {
 			    	cart += artObjects["title"]; 
 			    	cart += "</div>"; 
 			    	cart += "</div>"; 
-		     	//} 
-		     	document.getElementById("demo").innerHTML = cart;
-		     	//document.getElementById("subtotal").innerHTML = "Subtotal: <span class='text-warning'>$" + cost + "</span>"; 
+		     	 
+		     		document.getElementById("demo").innerHTML = cart;
+		     	}
+		     	var new_cost = +artObjects["cost"] + +document.getElementById("subtotal").innerHTML.slice(1);
+		     	document.getElementById("subtotal").innerHTML = "$" + new_cost; 
 		    }
 	});
 

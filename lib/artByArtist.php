@@ -146,7 +146,7 @@ class artByArtist {
 				); 
 			}
 		} else {
-			echo "0 results";
+			return "0 results";
 		}
 		$conn->close();	
 		return $artObject; 
