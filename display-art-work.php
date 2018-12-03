@@ -1,9 +1,7 @@
 <?php
-	session_start(); 
+  session_start(); 
+  include 'lib/shoppingCart.php'; 
 	$page = $_SERVER['PHP_SELF'];
-	
-	$_SESSION['cart']= array();
-
 ?>
 
 <!DOCTYPE html>
@@ -26,14 +24,12 @@
 	include 'includes/art-header.inc.php';
 	include 'lib/artists.php'; 
 	include 'lib/artByArtist.php'; 
-	include 'lib/shoppingCart.php'; 
 	
 	$art = artByArtist::getArtByID(); 
-  $artObject = artByArtist::getArtJSObject($art->artistID, $art->artworkID);
 ?>
 
 <script type="text/javascript">
-    var artObject = <?php echo json_encode($artObject); ?>;
+    var artObject = <?php echo json_encode($art->artworkID); ?>;
 </script>
 
 <div class="container">

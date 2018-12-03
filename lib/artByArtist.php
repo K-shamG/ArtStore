@@ -102,15 +102,17 @@ class artByArtist {
 		if (isset($_GET["artworkID"])) {
 			$artworkID = $_GET["artworkID"]; 
 		}
+		else {
+			$artworkID = self::getArtId()[0]; 
+		}
 		$artObjects = self::getArtObjects(); 
 		foreach($artObjects as $art) {
 			if($art->artworkID == $artworkID) return $art; 
 		}
 	}
 	
-	public static function getArtByWorkID($artistID, $artworkID) {
-		$id = $artistID; 
-		$artObjects = []; 
+	public static function getArtByWorkID($artworkID) {
+		$artObject = ""; 
 		
 		// Create connection
 		$conn = new mysqli(self::servername, self::username, self::password, self::dbname);
@@ -119,7 +121,7 @@ class artByArtist {
 			die("Connection failed: " . $conn->connect_error);
 		}
 		mysqli_set_charset($conn, "utf8");
-		$sql = "SELECT * from artworks WHERE (ArtistID = " . $id . ")";
+		$sql = "SELECT * from artworks WHERE ArtWorkID = '" . $artworkID . "'";
 		$result =  $conn->query($sql);
 		
 		if (!$result) {
@@ -142,15 +144,12 @@ class artByArtist {
 					$row["Height"], 
 					$row["OriginalHome"]
 				); 
-				array_push($artObjects, $artObject); 
 			}
 		} else {
 			echo "0 results";
 		}
 		$conn->close();	
-		foreach($artObjects as $art) {
-			if($art->artworkID == $artworkID) return $art; 
-		}
+		return $artObject; 
 	}
 
 	public static function getArtList($table1, $table2, $listID, $name) {

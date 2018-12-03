@@ -1,5 +1,11 @@
-<?php 
+<?php  
 	session_start(); 
+	echo count($_SESSION["cart"]); 
+	foreach($_SESSION["cart"] as $artwork => $quantity) {
+			echo $artwork; 
+			echo $quantity; 
+		
+	}
 	include 'includes/art-data.php'; 
 	include 'lib/artByArtist.php'; 
 	
@@ -34,11 +40,11 @@
             <th>Amount</th>
          </tr>
 		 <?php 
-			if(isset($_SESSION["cart"])) {
-				foreach($_SESSION["cart"] as $cart) {
+			if(count($_SESSION["cart"]) > 0) {
+				foreach($_SESSION["cart"] as $artwork => $quantity) {
 					echo "<tr>";
-					$art = artByArtist::getArtByWorkID($cart["artist"], $cart["artwork"]); 
-					outputCartRow($art->image, $art->title, 0, $art->cost);
+					$art = artByArtist::getArtByWorkID($artwork); 
+					outputCartRow($art->image, $art->title, $quantity, $art->cost);
 					echo "</tr>";
 				}
 			}
