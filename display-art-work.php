@@ -2,6 +2,9 @@
   session_start(); 
   include 'lib/shoppingCart.php'; 
 	$page = $_SERVER['PHP_SELF'];
+
+  $cart_items = array(); 
+  if(isset($_SESSION["cart"])) $cart_items = $_SESSION["cart"]; 
 ?>
 
 <!DOCTYPE html>
@@ -115,6 +118,6 @@
     <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
     <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script>  
 	
-	<script src="addToCart.js"></script> 
+	   <script src="addToCart.js"></script> 
   </body>
 </html>

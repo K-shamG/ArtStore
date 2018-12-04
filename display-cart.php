@@ -34,8 +34,8 @@
             <th>Amount</th>
          </tr>
 		 <?php 
-			if(count($_SESSION["cart"]) > 0) {
-				$subtotal = 0; 
+		 	$subtotal = 0;
+			if(isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0) {	 
 				foreach($_SESSION["cart"] as $artwork => $quantity) {
 					echo "<tr>";
 					$art = artByArtist::getArtByWorkID($artwork); 
@@ -84,7 +84,7 @@
          </tr>    
          <tr >
             <td colspan="4" class="moveRight"><button type="button" class="btn btn-primary" >Continue Shopping</button></td>
-            <td><button type="button" class="btn btn-success" >Checkout</button></td>
+            <td><button onclick="<?php session_destroy(); ?> location.reload();" type="button" class="btn btn-success" >Checkout</button></td>
          </tr>
       </table>         
 

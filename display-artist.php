@@ -1,7 +1,6 @@
 <?php
 
-
-$page = $_SERVER['PHP_SELF'];
+  $page = $_SERVER['PHP_SELF'];
 
 ?>
 
@@ -89,5 +88,6 @@ $page = $_SERVER['PHP_SELF'];
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
     <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script>    
+    <script src="addToCart.js"></script> 
   </body>
 </html>
