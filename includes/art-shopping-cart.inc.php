@@ -3,34 +3,43 @@
       <h3 class="panel-title">Cart </h3>
    </div>
    <div class="panel-body">
+      <div id="demo"></div>
+      <div id="demo2"></div>
+      <strong class="cartText">Subtotal: <span id ="subtotal" class="text-warning"></span></strong>
       <?php
-        $cart = ""; 
-        $cost = 0; 
-        foreach(array_unique($cart_items) as $artworkID) {
-        $artObject = artByArtist::getArtByWorkID($artworkID); 
-        if($artObject != "0 results") {
-            $img = "images/art/works/square-medium/" . $artObject->image . ".jpg"; 
-            $cost = number_format($artObject->cost); 
-
-            $cart .= "<div class='media'>"; 
-            $cart .= "<a class='pull-left' href='#'>";
-            $cart .= "<img class='media-object' src=" . $img . " alt='...' width='32'></a>";
-            $cart .= "<div class='media-body'>"; 
-            $cart .= "<p class='cartText'><a href='display-art-work.php?id=" . $artObject->artistID . "'>";
-            $cart .= $artObject->title; 
-            $cart .= "</div>"; 
-            $cart .= "</div>"; 
+        $art_items = []; 
+        $ids = artByArtist::getArtworkIDs(); 
+        foreach($ids as $id) {
+          array_push($art_items, artByArtist::getArtByWorkID($id)); 
+        } 
+       ?> 
+      <script>
+        var cart = getCart();
+        var string = ""; 
+        var subtotal = 0; 
+        var string = ""; 
+        var art = <?php echo json_encode($art_items)?>; 
+        for(var i = 0; i < art.length; i++) {
+          if(typeof cart[art[i]["artworkID"]] == 'number'){
+              var img = "images/art/works/square-medium/" + art[i]["image"] + ".jpg"; 
+              string += "<div class='media'>"; 
+              string += "<a class='pull-left' href='#'>";
+              string += "<img class='media-object' src=" + img + " alt='...' width='32'></a>";
+              string += "<div class='media-body'>"; 
+              string += "<p class='cartText'><a href='display-art-work.php?id=" + art[i]["artistID"] + "'>";
+              string += art[i]["title"]; 
+              string += "</div>"; 
+              string += "</div>"; 
+              subtotal += art[i]["cost"] * cart[art[i]["artworkID"]]; 
+          } 
         }
-
-      }
-
-        echo $cart;   
-      ?>
-      <div id="demo"></div>            
-      <strong class="cartText">Subtotal: <span id ="subtotal" class="text-warning">$<?php echo $cost?></span></strong>
+        document.getElementById("demo").innerHTML = string;
+         document.getElementById("subtotal").innerHTML = "$" + subtotal; 
+      </script>         
+      
       <div>
       <a href="display-cart.php"><button type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-info-sign"></span> Edit</button><a>
-      <button onclick="<?php session_destroy(); ?> addToCart(0);"type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-arrow-right"></span> Checkout</button>
+      <button onclick="clearCart(); addToCart(0);"type="button" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-arrow-right"></span> Checkout</button>
       </div>
    </div>
 

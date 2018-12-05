@@ -1,8 +1,5 @@
 <?php  
-	session_start(); 
-	include 'includes/art-data.php'; 
-	include 'lib/artByArtist.php'; 
-	
+	include 'lib/artByArtist.php'; 	
 ?>
 <html lang="en">
   <head>
@@ -14,7 +11,9 @@
     <link href="bootstrap3_defaultTheme/dist/css/bootstrap.css" rel="stylesheet"> 
     <!-- Custom styles for this template -->
     <link href="bootstrap3_defaultTheme/theme.css" rel="stylesheet">
-
+    	<script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
+    <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script> 
+    <script src="addToCart.js"></script> 
   </head>
 
 <?php include 'includes/art-header.inc.php'; ?>
@@ -33,58 +32,67 @@
             <th>Price</th>
             <th>Amount</th>
          </tr>
-		 <?php 
-		 	$subtotal = 0;
-			if(isset($_SESSION["cart"]) && count($_SESSION["cart"]) > 0) {	 
-				foreach($_SESSION["cart"] as $artwork => $quantity) {
-					echo "<tr>";
-					$art = artByArtist::getArtByWorkID($artwork); 
-					outputCartRow($art->image, $art->title, $quantity, $art->cost);
-					$subtotal += ($quantity * $art->cost); 
-					echo "</tr>";
-				}
-			}
-		?>
+
+         <?php
+         	$art_items = []; 
+         	$ids = artByArtist::getArtworkIDs(); 
+         	foreach($ids as $id) {
+         		array_push($art_items, artByArtist::getArtByWorkID($id)); 
+         	} 
+         ?>
+		 <script>
+		 	var cart = getCart();
+		 	var subtotal = 0; 
+		 	var string = ""; 
+		 	var art = <?php echo json_encode($art_items)?>; 
+		 	for(var i = 0; i < art.length; i++) {
+		 		if(cart[art[i]["artworkID"]] != undefined){
+		 			string += outputCartRow(art[i]["image"], art[i]["title"], cart[art[i]["artworkID"]], art[i]["cost"]); 
+		 			subtotal += art[i]["cost"] * cart[art[i]["artworkID"]]; 
+		 		}	
+		 	}
+		 	document.write(string); 
+		 </script>
+
          <tr class="success strong">
             <td colspan="4" class="moveRight">Subtotal</td>
             <td >
-				<?php
-					echo "$" . number_format($subtotal); 
-				?>
+				<script>document.write("$" + subtotal.toFixed(2));</script>
 			</td>
          </tr>
          <tr class="active strong">
             <td colspan="4" class="moveRight">Tax</td>
             <td >
-				<?php
-					$tax = $subtotal * 0.10;
-					echo "$" . number_format($tax); 
-				?>
+				<script>
+					var tax = subtotal * 0.10; 
+					document.write("$" + tax.toFixed(2));
+				</script>
 			</td>
          </tr>  
          <tr class="strong">
             <td colspan="4" class="moveRight">Shipping</td>
             <td>
-				<?php
-					$shipping = 100; 
-					if($subtotal > 2000) {
-						$shipping = 0;
+				<script>
+					var shipping = 100; 
+					if(subtotal > 2000 || subtotal == 0) {
+						shipping = 0; 
 					}
-					echo "$" . number_format($shipping); 
-				?>
+					document.write("$" + shipping.toFixed(2));
+				</script>
 			</td>
          </tr> 
          <tr class="warning strong text-danger">
             <td colspan="4" class="moveRight">Grand Total</td>
             <td>
-				<?php
-					echo "$" . number_format($subtotal + $tax + $shipping);
-				?>
+				<script>
+					var total = subtotal + tax + shipping; 
+					document.write("$" + total.toFixed(2));
+				</script>
 			</td>
          </tr>    
          <tr >
             <td colspan="4" class="moveRight"><button type="button" class="btn btn-primary" >Continue Shopping</button></td>
-            <td><button onclick="<?php session_destroy(); ?> location.reload();" type="button" class="btn btn-success" >Checkout</button></td>
+            <td><button onclick="clearCart(); location.reload(); " type="button" class="btn btn-success" >Checkout</button></td>
          </tr>
       </table>         
 
@@ -94,20 +102,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	<script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
-    <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script> 
- 
+
+ 	
   </body>
 </html>
 
-<?php
-	function outputCartRow($file, $product, $quantity, $price) {
-		$filePath = 'images/art/works/medium/' . $file . '.jpg'; 
-		$amount = $price * $quantity; 
-		echo "<tr><td><img class='img-thumbnail' src=" . $filePath . " alt='...'></td>" 
-		. "<td>" . $product . "</td>"
-		. "<td>" . $quantity . "</td>"
-		. "<td>$" . number_format($price) . "</td>"
-		. "<td>$" . number_format($amount) . "</td></tr>";
-	}
-?>
+<script>
+
+</script>

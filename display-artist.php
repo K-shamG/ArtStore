@@ -1,7 +1,18 @@
 <?php
-
+  // session_start(); 
   $page = $_SERVER['PHP_SELF'];
 
+  //   if(isset($_SESSION["cart"])) {
+  //   foreach($_SESSION["cart"] as $item => $quantity) {
+  //       echo "artworkID: " . $item; 
+  //       echo "<br>"; 
+  //       echo "quantity: " . $quantity; 
+  //       echo "<br>"; 
+  //       }
+  //     echo "count: " . count($_SESSION["cart"]);
+  // }else {
+  //   $_SESSION["cart"] = array(); 
+  // }
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +26,9 @@
     <link href="bootstrap3_defaultTheme/dist/css/bootstrap.css" rel="stylesheet"> 
     <!-- Custom styles for this template -->
     <link href="bootstrap3_defaultTheme/theme.css" rel="stylesheet">
-
+    <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
+    <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script>    
+    <script src="addToCart.js"></script> 
   </head>
 
   <body>
@@ -81,13 +94,5 @@
 <?php include 'includes/art-footer.inc.php'; ?>
 
 
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
-    <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script>    
-    <script src="addToCart.js"></script> 
   </body>
 </html>

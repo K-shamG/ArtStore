@@ -1,10 +1,18 @@
 <?php
-  session_start(); 
-  include 'lib/shoppingCart.php'; 
-	$page = $_SERVER['PHP_SELF'];
+ // session_start(); 
+	 $page = $_SERVER['PHP_SELF'];
 
-  $cart_items = array(); 
-  if(isset($_SESSION["cart"])) $cart_items = $_SESSION["cart"]; 
+ //    if(isset($_SESSION["cart"])) {
+ //    foreach($_SESSION["cart"] as $item => $quantity) {
+ //        echo "artworkID: " . $item; 
+ //        echo "<br>"; 
+ //        echo "quantity: " . $quantity; 
+ //        echo "<br>"; 
+ //        }
+ //      echo "count: " . count($_SESSION["cart"]);
+ //  }else {
+ //    $_SESSION["cart"] = array(); 
+ //  }
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +26,9 @@
     <link href="bootstrap3_defaultTheme/dist/css/bootstrap.css" rel="stylesheet"> 
     <!-- Custom styles for this template -->
     <link href="bootstrap3_defaultTheme/theme.css" rel="stylesheet">
-
+          <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
+    <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script> 
+    <script src="addToCart.js"></script> 
   </head>
 
   <body>
@@ -81,7 +91,7 @@
                    <tr>
                      <th>Genres:</th>
                      <td>
-						<?php artByArtist::getArtList("artworkgenres", "genres", "GenreID", "GenreName"); ?>
+						            <?php artByArtist::getArtList("artworkgenres", "genres", "GenreID", "GenreName"); ?>
                      </td>
                    </tr> 
                    <tr>
@@ -110,14 +120,6 @@
 </div>  <!-- end container -->
 
 <?php include 'includes/art-footer.inc.php'; ?>
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="bootstrap3_defaultTheme/assets/js/jquery.js"></script>
-    <script src="bootstrap3_defaultTheme/dist/js/bootstrap.min.js"></script>  
-	
-	   <script src="addToCart.js"></script> 
+ 
   </body>
 </html>
