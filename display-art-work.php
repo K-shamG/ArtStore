@@ -1,18 +1,5 @@
 <?php
- // session_start(); 
 	 $page = $_SERVER['PHP_SELF'];
-
- //    if(isset($_SESSION["cart"])) {
- //    foreach($_SESSION["cart"] as $item => $quantity) {
- //        echo "artworkID: " . $item; 
- //        echo "<br>"; 
- //        echo "quantity: " . $quantity; 
- //        echo "<br>"; 
- //        }
- //      echo "count: " . count($_SESSION["cart"]);
- //  }else {
- //    $_SESSION["cart"] = array(); 
- //  }
 ?>
 
 <!DOCTYPE html>

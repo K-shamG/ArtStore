@@ -16,23 +16,19 @@ function addToCart(artworkID) {
 					var exists = response[1];  
 					var cart = ""; 
 					var cost = 0; 
-					//for(var i = 0; i < artObjects.length; i++) {
-						if(!exists) {
-							var img = "images/art/works/square-medium/" + artObjects["image"] + ".jpg"; 
-					    	cart += "<div class='media'>"; 
-					    	cart += "<a class='pull-left' href='#'>";
-					    	cart += "<img class='media-object' src=" + img + " alt='...' width='32'></a>";
-					    	cart += "<div class='media-body'>"; 
-					    	cart += "<p class='cartText'><a href='display-art-work.php?id=" + artObjects["artistID"] + "'>";
-					    	cart += artObjects["title"]; 
-					    	cart += "</div>"; 
-					    	cart += "</div>"; 
-						}
+					if(!exists) {
+						var img = "images/art/works/square-medium/" + artObjects["image"] + ".jpg"; 
+				    	cart += "<div class='media'>"; 
+				    	cart += "<a class='pull-left' href='#'>";
+				    	cart += "<img class='media-object' src=" + img + " alt='...' width='32'></a>";
+				    	cart += "<div class='media-body'>"; 
+				    	cart += "<p class='cartText'><a href='display-art-work.php?id=" + artObjects["artistID"] + "'>";
+				    	cart += artObjects["title"]; 
+				    	cart += "</div>"; 
+				    	cart += "</div>"; 
+					}
 
-			     	 	
-			     	 	cost += parseInt(artObjects["cost"]); 
-			     		
-			     	//}
+			     	 cost += parseInt(artObjects["cost"]); 
 			     	var old_val = document.getElementById("demo2").innerHTML; 
 			     	document.getElementById("demo2").innerHTML = old_val + cart;
 			     	var old_cost = document.getElementById("subtotal").innerHTML; 
